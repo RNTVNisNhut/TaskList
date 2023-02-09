@@ -1,0 +1,17 @@
+1. Create new file 
+	File file = new....
+	file.createNewFile();
+2. Write to file
+	PrintWriter pw = new PrintWtiter(Path);
+	pw.println(); of print();
+	pw.flush() --> add to file ( *** )
+	pw.close() ->> ( *** )
+3. Change name file
+	File f1.toPath()
+	File f2.toPath()
+	
+	Files.move(f1.toPath(), f2.toPath(), StandardCopyOption.REPLACE_EXISTING);
+
+4. Delete file
+	Path p0 = f1.toPath();
+	Files.deleteIfExists(p0);

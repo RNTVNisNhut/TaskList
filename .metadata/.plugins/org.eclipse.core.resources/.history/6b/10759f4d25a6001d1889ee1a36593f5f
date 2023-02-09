@@ -1,0 +1,6 @@
+package workspace;
+
+public class task {
+	String name;
+	String level;
+}

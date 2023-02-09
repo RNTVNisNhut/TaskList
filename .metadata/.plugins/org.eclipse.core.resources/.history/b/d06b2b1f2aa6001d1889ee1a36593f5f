@@ -1,0 +1,10 @@
+package workspace;
+
+public class test {
+	public static void main(String[] args) {
+		String test = "Done App-Hard-6/2/2023";
+		int indexName = test.indexOf('-');
+		String nameTask = test.substring(0,indexName);
+		indexName = test.lastIndexOf('-');
+	}
+}

@@ -1,0 +1,14 @@
+ackage workspace;
+
+public class test {
+	public static void main(String[] args) {
+		String test = "Done App-Hard-6/2/2023";
+		int indexName = test.indexOf('-');
+		String nameTask = test.substring(0,indexName);
+		int indexName2 = test.lastIndexOf('-');
+		String level = test.substring(indexName+1,indexName2);
+		String day = test.substring(indexName2+1);
+		System.out.println("Name task is : " + nameTask + "\nLevel is : " + level + "\nDay is : " + day);
+	}
+	
+}

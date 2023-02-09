@@ -1,0 +1,47 @@
+package workspace;
+
+import java.util.Date;
+
+public class task {
+	String name;
+	String level;
+	String date;
+	Date dateTemp;
+	
+	public String getAlltast() {
+		return this.name + "-" + this.level + "-" + this.date;
+	}
+	public task(String name, String level, String date) {
+		this.name = name;
+		this.level = level;
+		this.date = date;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getLevel() {
+		return level;
+	}
+
+	public void setLevel(String level) {
+		this.level = level;
+	}
+
+	public String getDate() {
+		return date;
+	}
+
+	public void setDate(String date) {
+		this.date = date;
+	}
+	
+	
+	
+	
+}

@@ -1,0 +1,15 @@
+package workspace;
+
+public class main {
+	public static void main(String[] args) {
+		task[] list = new task[3];
+		
+		task t1 = new task("DoneApp","hard","6-2-2023");
+		task t2 = new task("DoneApp1","hard","7-2-2023");
+		task t3 = new task("DoneApp2","hard","8-2-2023");
+
+		list[0] = t1;
+		list[1] = t2;
+		list[2] = t3;
+	}
+}
