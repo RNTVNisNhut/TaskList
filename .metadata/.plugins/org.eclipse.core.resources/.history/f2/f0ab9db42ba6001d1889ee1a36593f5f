@@ -1,7 +1,0 @@
-package workspace;
-
-public class main {
-	public static void main(String[] args) {
-		function x = new function();
-	}
-}

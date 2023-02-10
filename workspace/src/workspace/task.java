@@ -5,19 +5,19 @@ import java.util.Date;
 public class task {
 	String name;
 	String level;
-	String dateShow;
-//	Date dateTemp;
+	Date dateShow;
 	
-//	public Date getDateTemp() {
-//		return this.dateTemp;
-//	}
-//	public void setDateTemp(Date dateTemp) {
-//		this.dateTemp = dateTemp;
-//	}
-	public String getAlltast() {
-		return this.name + "-" + this.level + "-" + this.dateShow;
+	public String getDateShowLeft() {
+		int x = this.dateShow.getDay();
+		int y = this.dateShow.getMonth();
+		int z = this.dateShow.getYear();
+		return x+"/" + y + "/" + z + " " + dateShow.getHours() + ":" + dateShow.getMinutes()+ ":" + dateShow.getSeconds();
 	}
-	public task(String name, String level, String dateShow) {
+	public String getAlltast() {
+		return this.name + "-" + this.level + "-"+ this.dateShow.getDate() + "/"  + this.dateShow.getMonth()+ "/" + this.dateShow.getYear();
+	}
+
+	public task(String name, String level, Date dateShow) {
 		this.name = name;
 		this.level = level;
 		this.dateShow = dateShow;
@@ -39,12 +39,14 @@ public class task {
 		this.level = level;
 	}
 
-	public String getDateShow() {
+	public Date getDateShow() {
 		return dateShow;
 	}
 
-	public void setDate(String dateShow) {
+	public void setDate(Date dateShow) {
 		this.dateShow = dateShow;
 	}
+	
+
 
 }

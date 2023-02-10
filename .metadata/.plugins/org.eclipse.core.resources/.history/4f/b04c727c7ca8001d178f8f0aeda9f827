@@ -1,0 +1,59 @@
+package test;
+
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
+
+public class test {
+	public static void main(String[] args) {
+//		String stringDate = "8/2/2023|20:00:00";
+//		
+//		int indexNextIsTime = stringDate.indexOf('|');
+//		int indexHours = stringDate.indexOf(':');
+//		int indexMinute = stringDate.lastIndexOf(':');
+//		
+//
+//		
+//		String hours = stringDate.substring(indexNextIsTime + 1, indexHours);
+//		String minute = stringDate.substring(indexHours+1,indexMinute);
+//		String second = stringDate.substring(indexMinute+1);
+		
+//		System.out.println(hours + ":" + minute + ":" + second);
+//		String data = "3-2-2222";
+//		int indexName = data.indexOf('-');
+//		int indexName2 = data.lastIndexOf('-');
+//		
+//		String nameTask = data.substring(0, indexName-1);
+//		String level = data.substring(indexName + 1, indexName2);
+//		String day = data.substring(indexName2 + 1);
+//		
+//		System.out.println(nameTask + "/" + level + "/" + day);
+//		
+//		Date date = new Date();
+//		
+//		System.out.println(date.getDate() + "/" + date.getMonth() + "/" + date.getYear() + " " + "AT" + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds());
+//		String dateText = "2/2/2222";
+//		
+//		int index1 = dateText.indexOf('/');
+//		int index2 = dateText.lastIndexOf('/');
+//		
+//		String day = dateText.substring(0, index1);
+//		String month = dateText.substring(index1+1, index2 );
+//		String year = dateText.substring(index2+1);
+//		
+//		System.out.println(day + "/" + month + "/" + year);
+		
+		
+		Date d1 = new Date(2023,2,9,20,00,00);
+        Date d2 = new Date(2023,2,10,20,00,00);
+        INT d3 = d2.getTime() - d1.getTime();
+       System.out.println();
+//        System.out.println(d1.getDate() + " " + d1.getMonth() + " " + d1.getYear());
+//        long d3 = d2.getTime()-d1.getTime(); 
+//        double TotalDays = Math.ceil(d3 / (1000 * 3600 * 24));
+//        int day = (int)TotalDays;
+//        System.out.println(day + " days left");
+//        System.out.println(d2.getDay() + " " + d2.getMonth() + " " + d2.getYear());
+//        System.out.println();
+//        System.out.println(TimeUnit.DAYS.convert(d3, TimeUnit.MILLISECONDS));
+	}
+}
