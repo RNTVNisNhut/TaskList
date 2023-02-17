@@ -1,0 +1,102 @@
+package workspace;
+
+import java.time.LocalDateTime;
+
+public class child_function {
+
+	// Add task
+	public LocalDateTime convertStringToLocalDateTime(String data) {
+
+		int index1 = data.indexOf("/");
+		int index2 = data.lastIndexOf("/");
+		int index3 = data.indexOf(">");
+		int index4 = data.indexOf(":");
+		int index5 = data.lastIndexOf(":");
+
+		String day = data.substring(0, index1);
+		String month = data.substring(index1 + 1, index2);
+		String year = data.substring(index2 + 1, index3);
+		String hours = data.substring(index3 + 1, index4);
+		String minutes = data.substring(index4 + 1, index5);
+		String second = data.substring(index5 + 1);
+
+		int day1 = Integer.parseInt(day);
+		int month1 = Integer.parseInt(month);
+		int year1 = Integer.parseInt(year);
+		int hours1 = Integer.parseInt(hours);
+		int minutes1 = Integer.parseInt(minutes);
+		int second1 = Integer.parseInt(second);
+
+		LocalDateTime result = LocalDateTime.of(year1, month1, day1, hours1, minutes1, second1);
+
+		return result;
+	}
+
+	public void convertDataFromFileToObj(String data, List L, int index) {
+		LocalDateTime dayStart;
+		LocalDateTime dayEnd;
+		String Name = data.substring(0, data.indexOf("-"));
+		String Level = data.substring(data.indexOf("-"), data.lastIndexOf("-"));
+		String DayStart = data.substring(data.lastIndexOf("-"),data.indexOf("|"));
+		String DayEnd = data.substring(data.indexOf("|"));
+
+		// Excuted of day Start
+		{
+			int index1 = DayStart.indexOf("/");
+			int index2 = DayStart.lastIndexOf("/");
+			int index3 = DayStart.indexOf(">");
+			int index4 = DayStart.indexOf(":");
+			int index5 = DayStart.lastIndexOf(":");
+
+			String day = DayStart.substring(0, index1);
+			String month = DayStart.substring(index1 + 1, index2);
+			String year = DayStart.substring(index2 + 1, index3);
+			String hours = DayStart.substring(index3 + 1, index4);
+			String minutes = DayStart.substring(index4 + 1, index5);
+			String second = DayStart.substring(index5 + 1);
+
+			int day1 = Integer.parseInt(day);
+			int month1 = Integer.parseInt(month);
+			int year1 = Integer.parseInt(year);
+			int hours1 = Integer.parseInt(hours);
+			int minutes1 = Integer.parseInt(minutes);
+			int second1 = Integer.parseInt(second);
+			
+			
+			dayStart = LocalDateTime.of(year1, month1, day1, hours1, minutes1, second1);
+			dayStart = LocalDateTime.of(year1, month1, day1, hours1, minutes1);
+
+		}
+		
+		
+		
+		// Excuted of day End
+		{
+			int index1 = DayEnd.indexOf("/");
+			int index2 = DayEnd.lastIndexOf("/");
+			int index3 = DayEnd.indexOf(">");
+			int index4 = DayEnd.indexOf(":");
+			int index5 = DayEnd.lastIndexOf(":");
+
+			String day = DayEnd.substring(0, index1);
+			String month = DayEnd.substring(index1 + 1, index2);
+			String year = DayEnd.substring(index2 + 1, index3);
+			String hours = DayEnd.substring(index3 + 1, index4);
+			String minutes = DayEnd.substring(index4 + 1, index5);
+			String second = DayEnd.substring(index5 + 1);
+
+			int day1 = Integer.parseInt(day);
+			int month1 = Integer.parseInt(month);
+			int year1 = Integer.parseInt(year);
+			int hours1 = Integer.parseInt(hours);
+			int minutes1 = Integer.parseInt(minutes);
+			int second1 = Integer.parseInt(second);
+			
+			dayEnd = LocalDateTime.of(year1, month1, day1, hours1, minutes1, second1);
+
+		}
+		
+		L.listTask[index] = new task(Name,Level,dayStart,dayEnd);
+
+	}
+}

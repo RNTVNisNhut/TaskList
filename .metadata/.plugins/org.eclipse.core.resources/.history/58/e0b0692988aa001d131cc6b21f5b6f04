@@ -1,0 +1,45 @@
+package workspace;
+
+import java.util.Date;
+
+public class task {
+	String name;
+	String level;
+	Date dateStart;
+	Date dateEnd;
+	
+	
+	public task(String name, String level, Date dateStart, Date dateEnd) {
+		this.name = name;
+		this.level = level;
+		this.dateStart = dateStart;
+		this.dateEnd = dateEnd;
+	}
+	
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getLevel() {
+		return level;
+	}
+	public void setLevel(String level) {
+		this.level = level;
+	}
+	public Date getDateStart() {
+		return dateStart;
+	}
+	public void setDateStart(Date dateStart) {
+		this.dateStart = dateStart;
+	}
+	public Date getDateEnd() {
+		return dateEnd;
+	}
+	public void setDateEnd(Date dateEnd) {
+		this.dateEnd = dateEnd;
+	}
+
+
+}

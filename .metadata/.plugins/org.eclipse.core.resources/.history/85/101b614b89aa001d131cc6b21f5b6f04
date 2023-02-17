@@ -1,0 +1,17 @@
+package test;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
+
+public class test {
+		public static void main(String[] args) {
+			LocalDateTime myObj = LocalDateTime.now();
+		    System.out.println(myObj.getDayOfMonth() + "/" + myObj.getMonth() +"/" + myObj.getYear());
+		    LocalDateTime x = LocalDateTime.of(myObj.getYear(), myObj.getMonth(), myObj.getDayOfMonth(), 0, 0);
+		    
+		    System.out.println(x);
+	}
+}

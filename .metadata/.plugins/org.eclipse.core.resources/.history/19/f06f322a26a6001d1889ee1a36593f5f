@@ -1,6 +1,0 @@
-package workspace;
-
-public class List {
-	task[] listTask;
-	
-}

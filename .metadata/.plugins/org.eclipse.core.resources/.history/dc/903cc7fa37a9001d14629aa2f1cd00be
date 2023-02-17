@@ -1,0 +1,99 @@
+package workspace;
+
+import java.util.Date;
+
+public class task {
+	String name;
+	String level;
+	Date dateStart;
+	Date dateEnd;
+	String dateStartText;
+	String dateEndText;
+	
+	
+	
+	
+	public String getDateStartText() {
+		String exceptTime = this.dateStartText.substring(0,this.dateStartText.indexOf('>'));
+		return exceptTime;
+	}
+
+
+
+	public void setDateStartText(String dateStartText) {
+		this.dateStartText = dateStartText;
+	}
+
+
+
+	public String getDateEndText() {
+		String exceptTime = this.dateEndText.substring(0,this.dateEndText.indexOf('>'));
+		return dateEndText;
+	}
+
+
+
+	public void setDateEndText(String dateEndText) {
+		this.dateEndText = dateEndText;
+	}
+
+
+
+	public String getDateStart() {
+		return dateStart.getDay() + "/"  + dateStart.getMonth() + "/" + dateStart.getYear();
+	}
+	
+	public Date getDateStartTypeDate() {
+		return this.dateStart;
+	}
+
+
+
+	public void setDateStart(Date dateStart) {
+		this.dateStart = dateStart;
+	}
+
+
+
+	public String getDateEnd() {
+		return dateEnd.getDay() + "/"  + dateEnd.getMonth() + "/" + dateEnd.getYear();
+	}
+
+	public Date getDateEndTypeDate() {
+		return this.dateEnd;
+	}
+
+	public void setDateEnd(Date dateEnd) {
+		this.dateEnd = dateEnd;
+	}
+
+
+
+	public task(String name, String level, Date dateStart, Date dateEnd) {
+		this.name = name;
+		this.level = level;
+		this.dateStart = dateStart;
+		this.dateEnd = dateEnd;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getLevel() {
+		return level;
+	}
+
+	public void setLevel(String level) {
+		this.level = level;
+	}
+
+	
+	
+
+
+}

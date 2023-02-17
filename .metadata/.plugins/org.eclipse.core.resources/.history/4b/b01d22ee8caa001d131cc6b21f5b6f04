@@ -1,0 +1,18 @@
+package workspace;
+
+import java.time.LocalDateTime;
+
+public class child_function {
+	
+	// Add task
+	public LocalDateTime convertStringToLocalDateTime(String data) {
+		int index1 = data.indexOf("/");
+		int index2 = data.lastIndexOf("/");
+		int index3 = data.indexOf(">");
+		int index4 = data.indexOf(":");
+		int index5 = data.lastIndexOf(":");
+		LocalDateTime result =  LocalDateTime.now();
+		
+		return result;
+	}
+}

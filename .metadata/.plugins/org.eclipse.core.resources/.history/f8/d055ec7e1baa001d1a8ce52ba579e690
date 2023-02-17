@@ -1,0 +1,75 @@
+package workspace;
+
+import java.util.Date;
+import java.util.Scanner;
+
+public class main {
+	public static void main(String[] args) {
+		
+		function x = new function();
+		//Function Load Data
+		List L = x.loadData();
+		
+		//Function Show Data
+		x.showData(L);
+		
+		int endOrcontinue = 0;
+		Scanner sc = new Scanner(System.in);
+		
+		do {
+			int select = 0;
+			
+			System.out.println("1 -> Add task"
+					+ "\n2 -> Show all Taks"
+					+ "\n3 -> Delete Task"
+					+ "\n4 -> Change Data"
+					+ "\n-1 -> end");
+			
+			select = Integer.parseInt(sc.nextLine());
+			
+			// Add task
+			if(select == 1) {
+				
+				System.out.println("Pass name task");
+				String nameTask = sc.nextLine();
+				
+				System.out.println("Pass level task");
+				String levelTask = sc.nextLine();
+				
+				System.out.println("Day Done ? ( Ex: 1/1/2023)");
+				String dateDone = sc.nextLine();
+				
+				System.out.println("Time Done ? ( Ex: 11:11:00");
+				String timeDone = sc.nextLine();
+				
+				//concat date done and time done
+				String dateTask = dateDone.concat(">");
+				dateTask = dateTask.concat(timeDone);
+				
+				// Day start and Day End
+				Date today = new Date();
+				Date endDay = x.convertDay(dateTask);
+				
+				// Save data day type text
+//				L.listTask[L.listTask.length-1].setDateStartText(x.convertDateToText(today));
+//				L.listTask[L.listTask.length-1].setDateEndText(x.convertDateToText(endDay));
+				System.out.println(today);
+//				x.addTask(L, nameTask, levelTask, today, endDay,x.convertDateToText(today),dateTask);
+			}
+			if(select == 2) {
+				x.showData(L);
+			}
+			if(select == 3) {
+				System.out.println("Which task delete ?");
+				String taskDelete = sc.nextLine();
+				x.deleteTask(L,Integer.parseInt(taskDelete));
+			}
+			if(select == 4) {
+				x.changeData(L);
+			}
+			if(select == -1) endOrcontinue = 1;
+		}
+		while(endOrcontinue == 0);
+
+	}
+}

@@ -1,0 +1,280 @@
+package workspace;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.time.LocalDateTime;
+import java.util.Date;
+import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
+
+public class function {
+	child_function x = new child_function();
+	File file = new File("D:\\my_app\\app\\console-program_task_list(02)\\data\\data.txt");
+
+	// LOAD DATA
+	public List loadData() {
+
+		task[] listTask = null;
+		List list;
+
+		try {
+			Scanner myReadFile = new Scanner(file);
+
+			// Load number task
+			String numberLoad = myReadFile.nextLine();
+			int numberInt = Integer.parseInt(numberLoad);
+			listTask = new task[numberInt];
+			list = new List(listTask);
+
+			// Load task
+			for (int i = 0; i < numberInt; i++) {
+				String data = myReadFile.nextLine();
+				x.convertDataFromFileToObj(data, list, i);
+			}
+
+		} catch (FileNotFoundException e) {
+			System.out.println("Can't load data from file");
+		}
+
+		list = new List(listTask);
+
+		return list;
+
+	}
+
+	public void changeData(List L) {
+
+		System.out.println("Position change ?");
+		Scanner sc = new Scanner(System.in);
+		// Position change
+		String positionChangeString = sc.nextLine();
+		int positionChange = Integer.parseInt(positionChangeString);
+		// Change element is
+		System.out.println("What do you want to change ? ( name - level - day end ) ?");
+		String changeX = sc.nextLine();
+
+		if (changeX.compareTo("name") == 0) {
+			System.out.println("Change into ?");
+			L.listTask[positionChange - 1].setName(sc.nextLine());
+			System.out.println("Successful Change !!!");
+		}
+		if (changeX.compareTo("level") == 0) {
+			System.out.println("Change into ?");
+			L.listTask[positionChange - 1].setLevel(sc.nextLine());
+			System.out.println("Successful Change !!!");
+		}
+		if (changeX.compareTo("day end") == 0) {
+			System.out.println("With exactly time pass 1 or 0");
+			String choose = sc.nextLine();
+			int choose1 = Integer.parseInt(choose);
+			if (choose1 == 1) {
+				System.out.println("Day done ?");
+				String dayDone = sc.nextLine();
+				System.out.println("Time Done ?");
+				String timeDone = sc.nextLine();
+				String resultDay = dayDone.concat(">");
+				resultDay = resultDay.concat(timeDone);
+				L.listTask[positionChange - 1].setDateEnd(x.convertStringToLocalDateTime(resultDay));
+			} else {
+				System.out.println("Day done ?");
+				String dayDone = sc.nextLine();
+
+				int index1 = dayDone.indexOf("/");
+				int index2 = dayDone.lastIndexOf("/");
+				String day = dayDone.substring(0, index1);
+				String month = dayDone.substring(index1 + 1, index2);
+				String year = dayDone.substring(index2 + 1);
+
+				LocalDateTime dayResult = LocalDateTime.of(Integer.parseInt(year), Integer.parseInt(month),
+						Integer.parseInt(day), 0, 0);
+				L.listTask[positionChange - 1].setDateEnd(dayResult);
+
+			}
+			System.out.println("Successful Change !!!");
+
+		}
+
+		// Save data to file
+		int number = 0;
+		for (task task : L.listTask) {
+			if (task != null)
+				number++;
+		}
+
+		// File save
+		File newFile = new File("D:\\my_app\\app\\console-program_task_list(02)\\data\\data.txt");
+
+		try {
+
+			// Create new file
+			try {
+				newFile.createNewFile();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				System.out.println("Can't create new file ");
+			}
+
+			// Save data here
+			PrintWriter pw = new PrintWriter(newFile);
+			pw.println(number);
+			for (int i = 0; i < number; i++) {
+				pw.println(L.listTask[i].getDataSave());
+			}
+			pw.flush();
+			pw.close();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+
+	// Load data from file
+	public void addTask(List L, String nameTask, String levelTask, LocalDateTime dayStart, LocalDateTime dayEnd) {
+//		L.listTask[L.listTask.length] = new task(nameTask,levelTask,dayStart,dayEnd);
+		task[] NewTask = new task[L.listTask.length + 1];
+
+		for (int i = 0; i < L.listTask.length; i++) {
+			NewTask[i] = L.listTask[i];
+		}
+		NewTask[NewTask.length - 1] = new task(nameTask, levelTask, dayStart, dayEnd);
+		List NewList = new List(NewTask);
+		L = NewList;
+
+		this.saveData(L);
+		this.showData(NewList);
+	}
+
+	// Show data
+	public void showData(List L) {
+
+		System.out.println(" ");
+		int i = 0;
+		for (; i < L.listTask.length; i++) {
+			if (L.listTask[i] != null) {
+				LocalDateTime toDay = LocalDateTime.now();
+
+				int j;
+				System.out.print(i + 1 + "." + L.listTask[i].getName());
+
+				for (j = 0; j < (30 - (L.listTask[i].getName().length())); j++) {
+					System.out.print(" ");
+				}
+
+				System.out.print(L.listTask[i].getLevel());
+				for (j = 0; j < (10 - (L.listTask[i].getLevel().length())); j++) {
+					System.out.print(" ");
+				}
+
+				System.out.println(x.caculateTimeLeft(toDay, L.listTask[i].getDateEnd()));
+
+			} else
+				break;
+		}
+		System.out.println(" ");
+
+	}
+
+	// Delete task with index
+	public void deleteTask(List L) {
+		int i = 1;
+		for (i = 1; i < L.listTask.length; i++) {
+			
+			File newFile = new File("D:\\my_app\\app\\console-program_task_list(02)\\data\\taskDone.txt");
+			
+			Scanner myReadFile = new Scanner(newFile);
+			
+			String number1 = myReadFile.nextLine();
+			int number = Integer.parseInt(number1) + 1;
+			
+			String dataDone[] = new String[number];
+			
+			for (i = 0; i < number; i++) {
+				LocalDateTime toDay = LocalDateTime.now();
+				if (i == number - 1) {
+					dataDone[i] = L.listTask[i].getDataSave().concat("_");
+					dataDone[i] = dataDone[i].concat(x.caculateTimeLeft(L.listTask[i].getDateStart(), toDay));
+				} else {
+
+					dataDone[i] = myReadFile.nextLine();
+				}
+			}
+			try {
+				PrintWriter pw = new PrintWriter(newFile);
+				pw.println(number);
+				for (i = 0; i < number; i++) {
+					pw.println(dataDone[i]);
+				}
+				pw.flush();
+				pw.close();
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+			if (L.listTask[L.listTask.length - i] != null) {
+				L.listTask[L.listTask.length - i] = null;
+
+				break;
+			}
+		}
+
+		this.saveData(L);
+	}
+
+	public void saveData(List L) {
+		File newFile = new File("D:\\my_app\\app\\console-program_task_list(02)\\data\\data.txt");
+		int number = 0, i = 0;
+		for (task task : L.listTask) {
+			if (L.listTask[i++] != null)
+				number++;
+		}
+		PrintWriter pw;
+		try {
+			pw = new PrintWriter(newFile);
+			pw.println(number);
+			for (int j = 0; j < number; j++) {
+				if (L.listTask[j] != null)
+					pw.println(L.listTask[j].getDataSave());
+			}
+			pw.flush();
+			pw.close();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+}
+
+// input 1/1/1111 -> return obj class Date
+
+//	// File save
+//	File newFile = new File("D:\\my_app\\app\\console-program_task_list(02)\\data\\data.txt");
+//
+//	try {
+//
+//		// Create new file
+//		try {
+//			newFile.createNewFile();
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			System.out.println("Can't create new file ");
+//		}
+//
+//		// Save data here
+//		PrintWriter pw = new PrintWriter(newFile);
+//		pw.println(number);
+//		for (int i = 0; i < number; i++) {
+//			pw.println(L.listTask[i].getDataSave());
+//		}
+//		pw.flush();
+//		pw.close();
+//	} catch (FileNotFoundException e) {
+//		// TODO Auto-generated catch block
+//		e.printStackTrace();
+//	}
+
+//}

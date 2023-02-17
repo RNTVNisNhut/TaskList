@@ -1,52 +1,64 @@
 package workspace;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 public class task {
 	String name;
 	String level;
-	Date dateShow;
+	LocalDateTime dateStart;
+	LocalDateTime dateEnd;
 	
-	public String getDateShowLeft() {
-		int x = this.dateShow.getDay();
-		int y = this.dateShow.getMonth();
-		int z = this.dateShow.getYear();
-		return x+"/" + y + "/" + z + " " + dateShow.getHours() + ":" + dateShow.getMinutes()+ ":" + dateShow.getSeconds();
-	}
-	public String getAlltast() {
-		return this.name + "-" + this.level + "-"+ this.dateShow.getDate() + "/"  + this.dateShow.getMonth()+ "/" + this.dateShow.getYear();
-	}
-
-	public task(String name, String level, Date dateShow) {
-		this.name = name;
-		this.level = level;
-		this.dateShow = dateShow;
-	}
-
 	public String getName() {
 		return name;
 	}
-
 	public void setName(String name) {
 		this.name = name;
 	}
-
 	public String getLevel() {
 		return level;
 	}
-
 	public void setLevel(String level) {
 		this.level = level;
 	}
-
-	public Date getDateShow() {
-		return dateShow;
+	public LocalDateTime getDateStart() {
+		return dateStart;
 	}
-
-	public void setDate(Date dateShow) {
-		this.dateShow = dateShow;
+	public void setDateStart(LocalDateTime dateStart) {
+		this.dateStart = dateStart;
+	}
+	public LocalDateTime getDateEnd() {
+		return dateEnd;
+	}
+	public void setDateEnd(LocalDateTime dateEnd) {
+		this.dateEnd = dateEnd;
+	}
+	public task(String name, String level, LocalDateTime dateStart, LocalDateTime dateEnd) {
+		this.name = name;
+		this.level = level;
+		this.dateStart = dateStart;
+		this.dateEnd = dateEnd;
 	}
 	
+	public String getDataSave() {
+		return this.name + "-"
+			+ this.level + "-"
+			+ this.dateStart.getDayOfMonth() + "/"
+			+ this.dateStart.getMonthValue() + "/"
+			+ this.dateStart.getYear() + ">"
+			+ this.dateStart.getHour() + ":"
+			+ this.dateStart.getMinute() + ":"
+			+ this.dateStart.getSecond() + "|"
+			+ this.dateEnd.getDayOfMonth() + "/"
+			+ this.dateEnd.getMonthValue() + "/"
+			+ this.dateEnd.getYear() + ">"
+			+ this.dateEnd.getHour() + ":"
+			+ this.dateEnd.getMinute() + ":"
+			+ this.dateEnd.getSecond();
 
+	}
+	
+	
+	
+	
 
 }

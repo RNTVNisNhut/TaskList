@@ -1,0 +1,11 @@
+package workspace;
+
+import java.time.LocalDateTime;
+
+public class child_function {
+	public LocalDateTime convertStringToLocalDateTime(String data) {
+		LocalDateTime result = new LocalDateTime().now();
+		
+		return result;
+	}
+}

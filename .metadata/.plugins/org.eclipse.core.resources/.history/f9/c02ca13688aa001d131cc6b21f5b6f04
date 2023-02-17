@@ -1,0 +1,15 @@
+package workspace;
+
+import java.time.LocalDateTime;
+import java.util.Date;
+
+public class task {
+	String name;
+	String level;
+	LocalDateTime dateStart;
+	LocalDateTime dateEnd;
+	
+	
+	
+
+}

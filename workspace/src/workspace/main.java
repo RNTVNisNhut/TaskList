@@ -1,5 +1,6 @@
 package workspace;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Scanner;
 
@@ -7,38 +8,67 @@ public class main {
 	public static void main(String[] args) {
 		
 		function x = new function();
-		List L = x.loadData();
-		x.showData(L);
-		int choose = 0;
-		Scanner sc = new Scanner(System.in);
+		child_function y = new child_function();
 		
+		x.showData();
+		
+		int endOrcontinue = 0;
+		Scanner sc = new Scanner(System.in);
+
 		do {
-			int select = 0;
-			System.out.println("1 -> Add task"
-					+ "\n2 -> Show all Taks"
-					+ "\n-1 -> end");
-			select = Integer.parseInt(sc.nextLine());
-			if(select == 1) {
+			
+			String select ="";
+			
+			System.out.println("                    add       : Add new Task !");
+			System.out.println("                    show      : Show All Task !");
+			System.out.println("                    done      : Done Last Task !");
+			System.out.println("                    change    : Change Data !");
+
+			select = sc.nextLine();
+
+			// Add task
+			if (select.compareTo("add") == 0) {
+
 				System.out.println("Pass name task");
 				String nameTask = sc.nextLine();
-				
+				 
 				System.out.println("Pass level task");
 				String levelTask = sc.nextLine();
 				
-				System.out.println("Pass Day done this task (EX 1111,11,1,10,30,30)");
-				String dateTask = sc.nextLine();
+				System.out.println("Day Done ? ( Ex: 1/1/2023)");
+				String dateDone = sc.nextLine();
 				
-				Date date = x.convertToDate(dateTask);
+				System.out.println("Time Done ? ( Ex: 11:11:00");
+				String timeDone = sc.nextLine();
 				
-				x.addTask(L, nameTask, levelTask, date);
-
+				// Noi ngay va thoi gian ket thuc
+				String endDayString = dateDone.concat(">");
+				endDayString = endDayString.concat(timeDone);
+				
+				LocalDateTime endDay = y.convertStringToLocalDateTime(endDayString);
+				LocalDateTime today = LocalDateTime.now();
+				
+				x.addTask(nameTask, levelTask, today, endDay);
+				
 			}
-			if(select == 2) {
-				x.showData(L);
+			
+			if (select.compareTo("show") == 0) {
+				x.showData();
 			}
-			if(select == -1) choose = 1;
-		}
-		while(choose == 0);
+			
+			if (select.compareTo("done") == 0) {
+				x.deleteTask();
+				System.out.println("successful delete");
+			}
+			
+			if (select.compareTo("change") == 0) {
+				x.changeData();
+			}
+			
+			if (select.compareTo("exit") == 0)
+				endOrcontinue = 1;
+			
+		} while (endOrcontinue == 0);
 
 	}
 }

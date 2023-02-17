@@ -1,0 +1,14 @@
+package workspace;
+
+import java.time.LocalDateTime;
+
+public class task {
+	String name;
+	String level;
+	LocalDateTime dateStart;
+	LocalDateTime dateEnd;
+	
+	
+	
+
+}

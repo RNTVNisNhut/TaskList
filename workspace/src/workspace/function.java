@@ -4,283 +4,36 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.nio.file.Files;
-import java.nio.file.StandardCopyOption;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 
 public class function {
-	File file = new File("D:\\my_app\\app\\console-program_task_list(02)\\data\\data.txt");
+	child_function x = new child_function();
+	File file = new File("D:\\my_app\\TaskList\\data\\data.txt");
 
-	public void addTask(List L, String nameTask, String levelTask, Date dateTask) {
-
-		// First is save in data ram
-		L.listTask[L.listTask.length - 1] = new task(nameTask, levelTask, dateTask);
-
-		// Setup to save data
-		int number = 0;
-
-		// we have list task
-
-		task[] listTaskNew = this.createNewListTask();
-		try {
-			Scanner myReadFile = new Scanner(file);
-			// we have number task
-			number = Integer.parseInt(myReadFile.nextLine()) + 1;
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		// update new task
-		listTaskNew[listTaskNew.length - 1] = new task(nameTask, levelTask, dateTask);
-
-		// File save
-		File newFile = new File("D:\\my_app\\app\\console-program_task_list(02)\\data\\data.txt");
-
-		// File file1 = new
-		// File("D:\\my_app\\app\\console-program_task_list(02)\\data\\data.txt");
-
-		try {
-			try {
-				newFile.createNewFile();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				System.out.println("Can't create new file ");
-			}
-			PrintWriter pw = new PrintWriter(newFile);
-			pw.println(number);
-			for (int i = 0; i < number; i++) {
-				pw.println(listTaskNew[i].getAlltast());
-			}
-			pw.flush();
-			pw.close();
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-
-	public task[] createNewListTask() {
-		task[] listTask = null;
-		try {
-			Scanner myReadFile = new Scanner(file);
-
-			// Load number task
-			String number = myReadFile.nextLine();
-
-			// +1 task in here
-			int number1 = Integer.parseInt(number) + 1;
-
-			listTask = new task[number1];
-
-			// Load task
-			for (int i = 0; i < number1 - 1; i++) {
-				String data = myReadFile.nextLine();
-
-				int indexName = data.indexOf('-');
-				int indexName2 = data.lastIndexOf('-');
-
-				String nameTask = data.substring(0, indexName);
-				String level = data.substring(indexName + 1, indexName2);
-
-				// Setup day input of task
-				String day = data.substring(indexName2 + 1);
-				Date date1;
-				{
-					int index1 = day.indexOf('/');
-					int index2 = day.lastIndexOf('/');
-
-					String day1 = day.substring(0, index1);
-					String month1 = day.substring(index1 + 1, index2);
-					String year1 = day.substring(index2 + 1);
-
-					int day2 = Integer.parseInt(day1);
-					int month2 = Integer.parseInt(month1);
-					int year2 = Integer.parseInt(year1);
-
-					date1 = new Date(year2, month2, day2);
-
-				}
-				listTask[i] = new task(nameTask, level, date1);
-
-			}
-
-		} catch (FileNotFoundException e) {
-			System.out.println("Can't load data from file");
-		}
-		return listTask;
-	}
-
-	public Date convertToDate(String stringDate) {
-
-		int index1 = stringDate.indexOf('/');
-		int index2 = stringDate.lastIndexOf('/');
-
-//		int indexNextIsTime = stringDate.indexOf('|');
-//		int indexHours = stringDate.indexOf(':');
-//		int indexMinute = stringDate.lastIndexOf(':');
-
-		String day = stringDate.substring(0, index1);
-		String month = stringDate.substring(index1 + 1, index2);
-		String year = stringDate.substring(index2 + 1);
-
-//		String hours = stringDate.substring(indexNextIsTime + 1, indexHours);
-//		String minute = stringDate.substring(indexHours + 1, indexMinute);
-//		String second = stringDate.substring(indexMinute + 1);
-
-		int day1 = 0;
-		int month1 = 0;
-		int year1 = 0;
-//		int hours1 = Integer.parseInt(hours);
-//		int minute1 = Integer.parseInt(minute);
-//		int second1 = Integer.parseInt(second);
-
-		if (!day.equals("")) {
-			day1 = Integer.parseInt(day);
-		}
-
-		if (!month.equals("")) {
-			month1 = Integer.parseInt(month);
-		}
-		if (!year.equals("")) {
-			year1 = Integer.parseInt(year);
-		}
-		Date data = new Date(year1, month1, day1);
-
-		return data;
-
-	}
-
-//	Spit day to dayTemp
-	public Date splitDay(String data) {
-		Date date;
-
-		int dayConvert = 0;
-		int monthConvert = 0;
-		int yearConvert = 0;
-
-		int index1 = data.indexOf('/');
-		int index2 = data.lastIndexOf('/');
-
-		String day = data.substring(0, index1 + 1);
-		if (day.equals(" ")) {
-			dayConvert = Integer.parseInt(day);
-		}
-		String month = data.substring(index1 + 1, index2 + 1);
-		if (month.equals(" ")) {
-			monthConvert = Integer.parseInt(month);
-		}
-		String year = data.substring(index2 + 1);
-		if (month.equals(" ")) {
-			yearConvert = Integer.parseInt(year);
-		}
-
-		date = new Date(yearConvert, monthConvert, dayConvert);
-		return date;
-	}
-
-// Show data
-	public void showData(List L) {
-
-		for (int u = 0; u < 3; u++)
-			System.out.println("\n");
-
-		System.out.println("=============== List task ===============");
-		System.out.println(this.numberOfData(L));
-		for (int i = 0; i < this.numberOfData(L); i++) {
-			int number = i + 1;
-
-// set up to count char
-			char[] nameTask = this.convertToChar(L.listTask[i].getName());
-			char[] levelTask = this.convertToChar(L.listTask[i].getLevel());
-
-			System.out.print(number + ". " + L.listTask[i].getName());
-			for (int j = 0; j < 35 - nameTask.length; j++) {
-				System.out.print(" ");
-			}
-
-			System.out.print(L.listTask[i].getLevel());
-			for (int k = 0; k < 10 - levelTask.length; k++) {
-				System.out.print(" ");
-			}
-			// Setup day "today "
-			Date dateCompare = new Date();
-			int monthToday = dateCompare.getMonth()+1;
-			int yearToday = dateCompare.getYear() + 1900;
-
-			String dateCompare1 = dateCompare.getDay() + "/" + monthToday + "/" + yearToday + " "
-					+ dateCompare.getHours() + ":" + dateCompare.getMinutes() + ":" + dateCompare.getSeconds();
-//			System.out.println(dateCompare1 + " " + L.listTask[i].getDateShowLeft());
-			this.findDifference(dateCompare1, L.listTask[i].getDateShowLeft());
-
-		}
-
-// add space beautifull
-		for (int u = 0; u < 3; u++)
-			System.out.println("\n");
-
-	}
-
-//	public int dayLeft(List L, int index) {
-//
-//		Date today = new Date();
-//		Date saveInput = L.listTask[index].getDateTemp();
-//
-//		long lastDayLeft = saveInput.getTime() - today.getTime();
-//		double TotalDays = Math.ceil(lastDayLeft / (1000 * 3600 * 24));
-//		int dayReturn = (int) TotalDays;
-//
-//		return dayReturn;
-//	}
-
-	public char[] convertToChar(String string) {
-		char[] convert = new char[string.length()];
-		for (int i = 0; i < string.length(); i++) {
-			convert[i] = string.charAt(i);
-		}
-		return convert;
-	}
-
-	public int numberOfData(List L) {
-		int count = 0;
-		for (task task : L.listTask)
-			count++;
-		return count;
-	}
-
-// Load data
+	// LOAD DATA
 	public List loadData() {
 
 		task[] listTask = null;
 		List list;
-//	Load data
 
 		try {
+
 			Scanner myReadFile = new Scanner(file);
 
-			// Load number task
-			String number = myReadFile.nextLine();
-			int number1 = Integer.parseInt(number);
-			listTask = new task[number1];
+			String numberLoad = myReadFile.nextLine();
+			int numberInt = Integer.parseInt(numberLoad);
 
-			// Load task
-			for (int i = 0; i < number1; i++) {
+			listTask = new task[numberInt];
+			list = new List(listTask);
+
+			for (int i = 0; i < numberInt; i++) {
 
 				String data = myReadFile.nextLine();
 
-				int indexName = data.indexOf('-');
-				int indexName2 = data.lastIndexOf('-');
-
-				String nameTask = data.substring(0, indexName);
-				String level = data.substring(indexName + 1, indexName2);
-				String day = data.substring(indexName2 + 1);
-
-//				Date dayTemp = this.splitDay(day);
-//				System.out.println("Name task is : " + nameTask + "\nLevel is : " + level + "\nDay is : " + day);
-				listTask[i] = new task(nameTask, level, this.convertToDate(day));
+				x.convertDataFromFileToObj(data, list, i);
 
 			}
 
@@ -294,54 +47,167 @@ public class function {
 
 	}
 
-	public void findDifference(String start_date, String end_date) {
+	public void changeData() {
 
-		// SimpleDateFormat converts the
-		// string format to date object
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+		List temp = this.loadData();
 
-		// Try Block
-		try {
+		System.out.println("Position change ?");
+		Scanner sc = new Scanner(System.in);
+		// Position change
+		String positionChangeString = sc.nextLine();
+		int positionChange = Integer.parseInt(positionChangeString);
+		// Change element is
+		System.out.println("What do you want to change ? ( name - level - day end ) ?");
+		String changeX = sc.nextLine();
 
-			// parse method is used to parse
-			// the text from a string to
-			// produce the date
-			Date d1 = sdf.parse(start_date);
-			Date d2 = sdf.parse(end_date);
+		if (changeX.compareTo("name") == 0) {
+			System.out.println("Change into ?");
+			temp.listTask[positionChange - 1].setName(sc.nextLine());
+			System.out.println("Successful Change !!!");
+		}
+		if (changeX.compareTo("level") == 0) {
+			System.out.println("Change into ?");
+			temp.listTask[positionChange - 1].setLevel(sc.nextLine());
+			System.out.println("Successful Change !!!");
+		}
+		if (changeX.compareTo("day end") == 0) {
+			System.out.println("With exactly time pass 1 or 0");
+			String choose = sc.nextLine();
+			int choose1 = Integer.parseInt(choose);
+			if (choose1 == 1) {
+				System.out.println("Day done ?");
+				String dayDone = sc.nextLine();
+				System.out.println("Time Done ?");
+				String timeDone = sc.nextLine();
+				String resultDay = dayDone.concat(">");
+				resultDay = resultDay.concat(timeDone);
+				temp.listTask[positionChange - 1].setDateEnd(x.convertStringToLocalDateTime(resultDay));
+			} else {
+				System.out.println("Day done ?");
+				String dayDone = sc.nextLine();
 
-			// Calculate time difference
-			// in milliseconds
+				int index1 = dayDone.indexOf("/");
+				int index2 = dayDone.lastIndexOf("/");
+				String day = dayDone.substring(0, index1);
+				String month = dayDone.substring(index1 + 1, index2);
+				String year = dayDone.substring(index2 + 1);
 
-			long difference_In_Time = d2.getTime() - d1.getTime();
+				LocalDateTime dayResult = LocalDateTime.of(Integer.parseInt(year), Integer.parseInt(month),
+						Integer.parseInt(day), 0, 0);
+				temp.listTask[positionChange - 1].setDateEnd(dayResult);
 
-			// Calculate time difference in
-			// seconds, minutes, hours, years,
-			// and days
-			long difference_In_Seconds = (difference_In_Time / 1000) % 60;
+			}
+			System.out.println("Successful Change !!!");
 
-			long difference_In_Minutes = (difference_In_Time / (1000 * 60)) % 60;
+		}
+		this.saveData(temp);
 
-			long difference_In_Hours = (difference_In_Time / (1000 * 60 * 60)) % 24;
+	}
 
-			long difference_In_Years = (difference_In_Time / (1000l * 60 * 60 * 24 * 365));
+	// Load data from file
+	public void addTask(String nameTask, String levelTask, LocalDateTime dayStart, LocalDateTime dayEnd) {
 
-			long difference_In_Days = (difference_In_Time / (1000 * 60 * 60 * 24)) % 365;
+		List temp = this.loadData();
 
-			// Print the date difference in
-			// years, in days, in hours, in
-			// minutes, and in seconds
-//			System.out.println();
-//			System.out.print("Difference " + "between two dates is: ");
+		task[] NewTask = new task[temp.listTask.length + 1];
 
-			System.out.println(difference_In_Years + " years, " + difference_In_Days + " days, " + difference_In_Hours
-					+ " hours, " + difference_In_Minutes + " minutes, " + difference_In_Seconds + " seconds");
+		for (int i = 0; i < temp.listTask.length; i++) {
+			NewTask[i] = new task(temp.listTask[i].getName(), temp.listTask[i].getLevel(),
+					temp.listTask[i].getDateStart(), temp.listTask[i].getDateEnd());
+		}
+		NewTask[temp.listTask.length] = new task(nameTask, levelTask, dayStart, dayEnd);
+		temp = new List(NewTask);
+		this.saveData(temp);
+		this.showData();
+
+	}
+
+	// Show data
+	public void showData() {
+
+		int k = 0;
+		List temp = this.loadData();
+
+		while (k < 3) {
+			System.out.println(" ");
+			k++;
 		}
 
-		// Catch the Exception
-		catch (ParseException e) {
-			e.printStackTrace();
+		System.out.println("TASK                            TYPE           TIME REMAINING");
+
+		int count = 0;
+		int int1 = 0;
+		for (task task : temp.listTask) {
+			if (temp.listTask[int1] != null) {
+				count++;
+			}
+		}
+
+		for (int i = 0; i < count; i++) {
+
+			if (temp.listTask[i] != null) {
+				LocalDateTime toDay = LocalDateTime.now();
+
+				int j;
+
+				System.out.print(i + 1 + "." + temp.listTask[i].getName());
+
+				for (j = 0; j < (30 - (temp.listTask[i].getName().length())); j++) {
+					System.out.print(" ");
+				}
+
+				System.out.print(temp.listTask[i].getLevel());
+				for (j = 0; j < (15 - (temp.listTask[i].getLevel().length())); j++) {
+					System.out.print(" ");
+				}
+
+				System.out.println(x.caculateTimeLeft(toDay, temp.listTask[i].getDateEnd()));
+
+			} else
+				break;
+		}
+
+		k = 0;
+		while (k < 3) {
+			System.out.println(" ");
+			k++;
 		}
 
 	}
 
+	// Delete task with index
+	public void deleteTask() {
+
+		List temp = this.loadData();
+
+		temp.listTask[temp.listTask.length - 1] = null;
+
+		this.saveData(temp);
+	}
+
+	public void saveData(List L) {
+		File newFile = new File("D:\\my_app\\TaskList\\data\\data.txt");
+
+		PrintWriter pw;
+		try {
+			pw = new PrintWriter(newFile);
+			int count = 0, i = 0;
+			for (task task : L.listTask) {
+				if (L.listTask[i++] != null) {
+					count++;
+				}
+			}
+			pw.println(count);
+			for (int j = 0; j < count; j++) {
+				if (L.listTask[j] != null)
+					pw.println(L.listTask[j].getDataSave());
+			}
+			pw.flush();
+			pw.close();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
 }

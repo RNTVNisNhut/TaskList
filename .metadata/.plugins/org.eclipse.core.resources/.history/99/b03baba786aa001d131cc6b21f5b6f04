@@ -1,0 +1,31 @@
+package workspace.Child_load;
+
+import java.util.Date;
+
+import workspace.task;
+
+public class convert {
+	public void convertStringToObjectTask(task[] listTask, String data, int i) {
+
+		int indexName = data.indexOf('-');
+		int indexName2 = data.lastIndexOf('-');
+
+		String nameTask = data.substring(0, indexName);
+		String level = data.substring(indexName + 1, indexName2);
+		String day = data.substring(indexName2 + 1);
+
+		int index2Day = day.indexOf('|');
+
+		String dataDayStart = day.substring(0, index2Day-2);
+		String dataDayEnd = day.substring(index2Day + 1);
+
+		Date dayStart = this.convertDay(dataDayStart);
+		Date dayEnd = this.convertDay(dataDayEnd);
+
+		listTask[i] = new task(nameTask, level, dayStart, dayEnd);
+
+		// set String for text show in screen
+		listTask[i].setDateStartText(dataDayStart);
+		listTask[i].setDateEndText(dataDayEnd);
+	}
+}
